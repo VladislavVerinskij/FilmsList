@@ -38,7 +38,7 @@ class FavoriteFragment : Fragment() {
     private fun init() {
         val viewModel = ViewModelProvider(this).get(FavoriteFragmentViewModel::class.java)
         recyclerView = binding.rvFavorite
-        recyclerView.adapter = adapter
+       // recyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
