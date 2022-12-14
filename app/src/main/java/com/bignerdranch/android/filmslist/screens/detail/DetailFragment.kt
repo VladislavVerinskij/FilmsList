@@ -53,10 +53,12 @@ class DetailFragment : Fragment() {
         binding.imageDetailFavorite.setOnClickListener {
             if(!isFavorite) {
                 binding.imageDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                viewModel.insert(currentMovie){}
                 isFavorite = true
             }
             else {
                 binding.imageDetailFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                viewModel.delete(currentMovie){}
                 isFavorite = false
             }
         }

@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.bignerdranch.android.filmslist.MAIN
 import com.bignerdranch.android.filmslist.R
 import com.bignerdranch.android.filmslist.databinding.FragmentFavoriteBinding
 import com.bignerdranch.android.filmslist.databinding.FragmentMainBinding
+import com.bignerdranch.android.filmslist.models.MoviesItemModel
 import com.bignerdranch.android.filmslist.screens.main.MainAdapter
 import com.bignerdranch.android.filmslist.screens.main.MainFragmentViewModel
 
@@ -38,11 +40,22 @@ class FavoriteFragment : Fragment() {
     private fun init() {
         val viewModel = ViewModelProvider(this).get(FavoriteFragmentViewModel::class.java)
         recyclerView = binding.rvFavorite
-       // recyclerView.adapter = adapter
+        recyclerView.adapter = adapter
+        viewModel.getAllMovies().observe(viewLifecycleOwner,{list ->
+            adapter.setList(list.asReversed())
+        })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mBinding = null
+    }
+
+    companion object{
+        fun clickMovie(model: MoviesItemModel) {
+            val bundle = Bundle()
+            bundle.putSerializable("movie", model)
+            MAIN.navController.navigate(R.id.action_favoriteFragment_to_detailFragment, bundle)
+        }
     }
 }
